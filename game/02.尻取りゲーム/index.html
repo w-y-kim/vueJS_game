@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+    content="width=device-width, user-scalable=no, initital-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="id=edge">
+    <title>尻取りゲーム</title>
+      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script></head>
+  <body>
+    <div id="root">
+      <div>{{word}}</div>
+      <form v-on:submit="onSubmit">
+        <input ref="answer" type="text" v-model="value">
+        <button type="submit">提出</button>
+      </form>
+      <div id="result">{{resultLabel}}</div>
+    </div>
+  </body>
+  <script type="text/javascript">
+    const app = new Vue({
+      el: '#root',
+      data: {
+        word: 'すし',
+        value: '',
+        result: false,
+        resultLabel: 'ゲームスタート！'
+      },
+      methods: {
+        onSubmit(e) {
+          e.preventDefault();
+          this.result = this.word[this.word.length - 1] === this.value[0];
+          if(this.result) {
+            this.resultLabel = 'OK';
+            this.word = this.value;
+            this.value = '';
+          } else {
+            this.resultLabel = 'FAIL, Retry';
+            this.value = '';
+          }
+          this.$refs.answer.focus();
+        }
+      },
+    })
+  </script>
+</html>

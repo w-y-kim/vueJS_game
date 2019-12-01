@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+    content="width=device-width, user-scalable=no, initital-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="id=edge">
+    <title>九九ゲーム</title>
+      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script></head>
+  <body>
+    <div id="root">
+      <div>{{first}} かけ {{second}}は？</div>
+      <form v-on:submit="onSubmit">
+        <input ref="answer" type="number" v-model="value">
+        <button type="submit">提出</button>
+      </form>
+      <div id="result">{{resultLabel}}</div>
+    </div>
+  </body>
+  <script type="text/javascript">
+    const app = new Vue({
+      el: '#root',
+      data: {
+        first: Math.ceil(Math.random() * 9),
+        second: Math.ceil(Math.random() * 9),
+        value: '',
+        result: false,
+        resultLabel: '何でしょう',
+      },
+      methods: {
+        init() {
+          this.value = '';
+          if(this.result) {
+            this.first = Math.ceil(Math.random() * 9);
+            this.second = Math.ceil(Math.random() * 9);
+          }
+        },
+        onSubmit(e) {
+          e.preventDefault(); // to prevent refresh because THIS IS SPA!!!
+          this.result = this.first * this.second === parseInt(this.value)
+          this.resultLabel = this.result ? '正解': 'ぶー';
+          this.init();
+          // onFocus DOMを直接いじるので、データ以外の属性修正のみ
+          this.$refs.answer.focus();
+        },
+      }
+    })
+  </script>
+</html>

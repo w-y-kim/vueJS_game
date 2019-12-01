@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue.js</title>
+  </head>
+  <body>
+    <div id="app">
+      {{ message }}
+      <view-component03></view-component03>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      // view instance to use vueJS (required)
+      new Vue({
+        // instance option properties
+        el: '#app',
+        data: {
+          message: 'Hello Vue.js!'
+        },
+        created: function() {
+          // life cycle mounded, updated, destroyed etc...
+        },
+        components: {
+          'view-component01': {
+            template: '<div> Compnent01 is here! </div>'
+          },
+          'view-component02': localComponent
+        }
+      })
+      // declaring of global component
+      Vue.component('view-component03', {
+        template: 'Component03 is here!',
+      })
+
+      // declaring of local component
+      let localComponent = {
+        template: 'localComponent is here!'
+      }
+
+    </script>
+  </body>
+</html>
